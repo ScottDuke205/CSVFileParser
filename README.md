@@ -6,4 +6,5 @@ own file. Additionally, sort the contents of each file by last and first name (a
 then only the record with the highest version should be included.
 
 Input file: sample.csv
+
 Output files: Aetna.csv, BCBS.csv, Humana.csv and UnitedHealthcare.csv
