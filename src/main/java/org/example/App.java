@@ -92,11 +92,12 @@ public class App {
             List<Enrollee> insEnrolleeList = insuranceHashMap.get(insuranceCompanyKey);
 
             // Sort enrollee list by last name, first name ascending order before writing to file.
-            Comparator<Enrollee> lastNameComparator = Comparator.comparing(Enrollee::getLastName);
-            Comparator<Enrollee> firstNameComparator = Comparator.comparing(Enrollee::getFirstName);
-            Comparator<Enrollee> multiFieldComparator = lastNameComparator.thenComparing(firstNameComparator);
+            Comparator<Enrollee> compareByName = Comparator
+                    .comparing(Enrollee::getLastName)
+                    .thenComparing(Enrollee::getFirstName);
+
             List<Enrollee> sortedInsEnrolleeList = insEnrolleeList.stream()
-                    .sorted(multiFieldComparator)
+                    .sorted(compareByName)
                     .collect(Collectors.toList());
 
             writeNewCSVFileForInsuranceCompany(insuranceCompanyKey, sortedInsEnrolleeList);
