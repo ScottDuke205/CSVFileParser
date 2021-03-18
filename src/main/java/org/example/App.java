@@ -97,7 +97,7 @@ public class App {
                     .thenComparing(Enrollee::getFirstName);
 
             List<Enrollee> sortedInsEnrolleeList = insEnrolleeList.stream()
-                    .sorted(compareByName)
+                    .sorted(multiFieldComparator)
                     .collect(Collectors.toList());
 
             writeNewCSVFileForInsuranceCompany(insuranceCompanyKey, sortedInsEnrolleeList);
