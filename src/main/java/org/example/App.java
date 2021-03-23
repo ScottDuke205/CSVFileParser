@@ -20,7 +20,7 @@ public class App {
     private static final String SAMPLE_CSV_FILE_PATH = "./sample.csv";
 
     // The HashMap is to separate enrollee by insurance company.
-    private static HashMap<String, List<Enrollee>> insuranceHashMap = new HashMap();
+    private static Map<String, List<Enrollee>> insuranceHashMap = new HashMap();
 
     public static void main(String[] args) {
         readCSVFile();
@@ -84,12 +84,9 @@ public class App {
     }
 
     private static void sortAndWriteNewCSVFile() {
-        for (Map.Entry<String, List<Enrollee>> entry : insuranceHashMap.entrySet()) {
-            // Get the key from the hashmap
-            String insuranceCompanyKey = entry.getKey();
-
+        insuranceHashMap.forEach((k, v) -> {
             // Get the enrollee list from insurance company hashmap for the insurance company.
-            List<Enrollee> insEnrolleeList = insuranceHashMap.get(insuranceCompanyKey);
+            List<Enrollee> insEnrolleeList = insuranceHashMap.get(k);
 
             // Sort enrollee list by last name, first name ascending order before writing to file.
             Comparator<Enrollee> compareByName = Comparator
@@ -100,8 +97,8 @@ public class App {
                     .sorted(compareByName)
                     .collect(Collectors.toList());
 
-            writeNewCSVFileForInsuranceCompany(insuranceCompanyKey, sortedInsEnrolleeList);
-        }
+            writeNewCSVFileForInsuranceCompany(k, sortedInsEnrolleeList);
+        });
     }
 
     private static void writeNewCSVFileForInsuranceCompany(String insuranceCompanyKey, List insEnrolleeList) {
