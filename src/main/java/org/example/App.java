@@ -42,29 +42,27 @@ public class App {
                 enrollee.setVersion(Integer.parseInt(record.get("version")));
                 enrollee.setInsuranceCompany(record.get("insuranceCompany"));
 
-                if (isNewEnrollee(enrollee)) {
-                    List<Enrollee> enrolleeList = new ArrayList<>();
-                    enrolleeList.add(enrollee);
-                    insuranceHashMap.put(enrollee.getInsuranceCompany(), enrolleeList);
-                }
+                addUpdateEnrolleeList(enrollee);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private static boolean isNewEnrollee(Enrollee enrollee) {
+    private static void addUpdateEnrolleeList(Enrollee enrollee) {
         boolean isNew = true;
 
         // If insurance does not exist in hashMap, return to add insurance company/enrollee.
         if (!insuranceHashMap.containsKey(enrollee.getInsuranceCompany())) {
-            return isNew;
+            List<Enrollee> enrolleeList = new ArrayList<>();
+            enrolleeList.add(enrollee);
+            insuranceHashMap.put(enrollee.getInsuranceCompany(), enrolleeList);
+            return;
         }
 
         // Get the enrollee list from insurance company hashmap for the insurance company.
         List<Enrollee> insEnrolleeList = insuranceHashMap.get(enrollee.getInsuranceCompany());
 
-        // Loop through the enrollee list to find the userId.
         for (int i = 0; i < insEnrolleeList.size(); i++) {
             Enrollee existEnrollee = insEnrolleeList.get(i);
             if (existEnrollee.getUserId().equals(enrollee.getUserId())) {
@@ -80,7 +78,6 @@ public class App {
         if (isNew) {
             insEnrolleeList.add(enrollee);
         }
-        return false;
     }
 
     private static void sortAndWriteNewCSVFile() {
@@ -101,15 +98,14 @@ public class App {
         });
     }
 
-    private static void writeNewCSVFileForInsuranceCompany(String insuranceCompanyKey, List insEnrolleeList) {
+    private static void writeNewCSVFileForInsuranceCompany(String insuranceCompanyKey, List<Enrollee> insEnrolleeList) {
         String fileName = "./" + insuranceCompanyKey.replaceAll(" ", "") + ".csv";
         try (FileWriter fw = new FileWriter(fileName);
              BufferedWriter writer = new BufferedWriter(fw);
              CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
                      .withHeader("userId", "fistName", "lastName", "version", "insuranceCompany"));
         ) {
-            for (int i = 0; i < insEnrolleeList.size(); i++) {
-                Enrollee enrollee = (Enrollee) insEnrolleeList.get(i);
+            for (Enrollee enrollee : insEnrolleeList) {
                 csvPrinter.printRecord(enrollee.getUserId(), enrollee.getFirstName(),
                         enrollee.getLastName(), enrollee.getVersion(), enrollee.getInsuranceCompany());
             }
@@ -117,5 +113,4 @@ public class App {
             ex.printStackTrace();
         }
     }
-
 }
