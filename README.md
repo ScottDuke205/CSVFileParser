@@ -8,3 +8,12 @@ then only the record with the highest version should be included.
 Input file: sample.csv
 
 Output files: Aetna.csv, BCBS.csv, Humana.csv and UnitedHealthcare.csv
+
+
+Update: 05/06/21
+Added three other ways to parse a CSV file.
+1. Streaming
+2. CSV Bean Builder one record at a time
+3. CSV Bean Builder Streaming
+
+After each CSV parsing, I display the time it took on the front end. I have not changed the back end, which sorts and writes the file.
