@@ -1,11 +1,12 @@
-1, Tony, Stark, 1, BCBS
-2, Rick, James, 1, United Healthcare
-3, Chris, Rock, 2, Aetna
-4, John, Doe, 1, Humana
-5, Ricky, Lake, 1, Aetna
-1, Bob, Barker, 2, BCBS
-6, Peter, Parker, 1, BCBS
-1, Dick, Clark, 3, BCBS
-3, Paul, Harvey, 1, Aetna
-7, John, Parker, 1, BCBS
-2, Ray, Richards, 1, BCBS
+id,firstName,lastName,version,insurance
+1,Tony,Stark,1,BCBS
+2,Rick,James,1,United Healthcare
+3,Chris,Rock,2,Aetna
+4,John,Doe,1,Humana
+5,Ricky,Lake,1,Aetna
+1,Bob,Barker,2,BCBS
+"6", "Peter", "Parker", 1, "BCBS"
+1,Dick,Clark,3,BCBS
+3,Paul,Harvey,1,Aetna
+7,John,Parker,1,BCBS
+2,Ray,Richards,1,BCBS
